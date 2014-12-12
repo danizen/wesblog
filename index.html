@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scaffold for blog test</title>
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/mustache.min.js"></script>
+  <script src="js/wesblog.js"></script>
+  <link rel="stylesheet" href="css/wesblog.css"></script>
+</head>
+<body>
+  <h1>Scaffold for test of Blogger Widget</h1>
+    <p><strong>Welcome</strong></p>
+    <p>WES is a humanistic congregation that affirms the worth of every person.
+Our Sunday Platform Service is the heart of our community life. This is where
+we gather to reflect, to share companionship, and to refresh and renew our
+commitment to creating a more ethical world. We warmly welcome visitors to join
+us, participate in our activities, and get to know our community. Here's what
+to expect on Sunday mornings...</p>
+  <p><strong>WES News Blog</strong></p>
+  <p>To read the full articles and archives go to our Blog.</p>
+  <script type="text/template" id="blog-template">
+    {{#posts}}
+      <div class="post">
+        <div class="pubdate">{{pubdate}}</div>
+        <div class="title"><a href="{{& link}}">{{title}}</a></div>
+        <div>
+          <div class="snippet">{{& snippet}}</div>
+        </div>
+      </div>
+    {{/posts}}
+  </script>
+  <div id="blog-entries">
+  </div>
+  <script src="http://ethicalsocietydc.blogspot.com/feeds/posts/default?alt=json-in-script&callback=WESBLOG.showPosts"></script>
+</body>
+</html>
