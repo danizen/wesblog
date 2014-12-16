@@ -31,7 +31,24 @@ var WESBLOG = (function() {
     },
     // Trims the content down to a manageable length
     trimContent: function(content) {
-      return '<span>not yet implemented</span>';
+      var nwords = 0;
+      var type = content['type'];
+      if (type == 'text') {
+        return content['$t'];
+      }
+
+      var t = content['$t'];
+      var n = t.search('<a name="more"');
+      if (n != -1) {
+        // has jump marker, cut here and return
+        return t.substring(0, n) + '...';
+      }
+
+      // count characters
+      if (t.length > 140)
+        return t.substring(0, 140) + '...';
+
+      return t;
     },
     // Formats JSON data from blogger into simpler model
     formatPosts: function(data) {
@@ -43,7 +60,7 @@ var WESBLOG = (function() {
         var entry = entries[i];
         var title = entry['title']['$t'];
         var link = this.findLink(entry['link']);
-        var content = this.trimContent(entry['content']['$t']);
+        var content = this.trimContent(entry['content']);
         var datestr = this.formatDate(entry['published']['$t']);
         result.posts[i] = {
           title: title, pubdate: datestr, link: link, snippet: content
