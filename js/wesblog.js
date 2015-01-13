@@ -30,25 +30,56 @@ var WESBLOG = (function() {
       return '#'; // graceful degradation
     },
     // Trims the content down to a manageable length
-    trimContent: function(content) {
+    parseContent: function(content) {
       var nwords = 0;
       var type = content['type'];
       if (type == 'text') {
-        return content['$t'];
+        return { snippet: content[$], image: null };
       }
 
-      var t = content['$t'];
-      var n = t.search('<a name="more"');
-      if (n != -1) {
-        // has jump marker, cut here and return
-        return t.substring(0, n) + '...';
+      // create an element with this HTML to parse the HTML
+      var el = document.createElement('div');
+      el.innerHTML = content['$t'];
+
+      // remove the first img from the text
+      var imgsrc = null;
+      var imgtag = el.querySelector('img');
+      if (imgtag) {
+        imgsrc = imgtag.getAttribute('src');
+        imgsrc = '<img src="' + imgsrc + '">';
+        var parenttag = imgtag.parentNode;
+        if (parenttag.nodeName == 'A') {
+          parenttag.parentNode.removeChild(parenttag);
+        } else {
+          parenttag.removeChild(imgtag);
+        }
       }
 
-      // count characters
-      if (t.length > 140)
-        return t.substring(0, 140) + '...';
+      // Get the first span containing text
+      var bestspan = null;
+      var spans = el.getElementsByTagName('SPAN');
+      for (var i = 0; i < spans.length; i++) {
+        var span = spans[i];
+        if (span.firstChild.nodeName == '#text') {
+          // trim space until we see a non-space character
+          var tt = span.textContent.trim();
+          if (tt.length != 0) {
+            bestspan = span;
+            i = spans.length;
+          }
+        }
+      }
 
-      return t;
+      var thetext;
+      if (bestspan) {
+        thetext = bestspan.innerHTML;
+      } else {
+        thetext = el.innerHTML;
+      }
+
+      // Take each text node, mark its position in the text.  
+      // Fragment combination into sentences.  Take first 3 sentences.
+      return { snippet: thetext, image: imgsrc };
     },
     // Formats JSON data from blogger into simpler model
     formatPosts: function(data) {
@@ -60,10 +91,10 @@ var WESBLOG = (function() {
         var entry = entries[i];
         var title = entry['title']['$t'];
         var link = this.findLink(entry['link']);
-        var content = this.trimContent(entry['content']);
+        var parse = this.parseContent(entry['content']);
         var datestr = this.formatDate(entry['published']['$t']);
         result.posts[i] = {
-          title: title, pubdate: datestr, link: link, snippet: content
+          title: title, pubdate: datestr, link: link, snippet: parse.snippet, image: parse.image
         };
       }
       return result;

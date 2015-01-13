@@ -1,1 +1,6 @@
 /* Curently empty */
+div.post { 
+    margin-top: 0.5em;
+    border-top: 1px solid #3d3d3d; 
+    padding-top: 0.5em;
+}
