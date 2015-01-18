@@ -2,11 +2,11 @@
 var WESBLOG = (function() {
   //= private data 
   var monthNames = new Array(
-      "January", "February", "March", 
-      "April", "May", "June", "July", "August", "September", 
-      "October", "November", "December");
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December");
 
-  var dayNames = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+  var dayNames = new Array(
+    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
 
   //= public object
   return {
