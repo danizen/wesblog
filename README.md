@@ -36,7 +36,7 @@ Where you want the posts to appear include an empty div in the page:
 Directly below that, include a script calling the JSONP of blogger, substituting any blog we want to include:
 
 ```
-<script src="http://<blogname>.blogspot.com/feeds/posts/default?alt=json-in-script&callback=WESBLOG.showPosts"></script>
+<script src="http://ethicalsocietydc.blogspot.com/feeds/posts/default?alt=json-in-script&callback=WESBLOG.showPosts"></script>
 ```
 
 
