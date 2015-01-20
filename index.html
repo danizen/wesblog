@@ -21,12 +21,10 @@ to expect on Sunday mornings...</p>
   <script type="text/template" id="blog-template">
     {{#posts}}
       <div class="post">
+        <div class="image">{{& image}}</div>
         <div class="pubdate">{{pubdate}}</div>
         <div class="title"><a href="{{& link}}">{{title}}</a></div>
-        <div>
-          <div class="snippet">{{& snippet}}</div>
-          <div class="image">{{& image}}</div>
-        </div>
+        <div class="snippet">{{& snippet}}</div>
       </div>
     {{/posts}}
   </script>

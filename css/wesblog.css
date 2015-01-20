@@ -1,6 +1,35 @@
-/* Curently empty */
-div.post { 
-    margin-top: 0.5em;
-    border-top: 1px solid #3d3d3d; 
+.post { 
     padding-top: 0.5em;
+    border-top: 1px dotted #222;
+    margin-top: 0.5em;
+    width: 100%;
+}
+.post .pubdate {
+    color: #999;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.9em;
+} 
+.post {
+    font-family: sans-serif;
+    font-size: 1.0em;
+    font-style: normal;
+    overflow: auto;
+}
+.post .title {
+    font-weight: bold;
+}
+.post a {
+    color: #900;
+    text-decoration: underline;
+}
+.post a:hover {
+    text-decoration: none;
+}
+.post a:focus {
+    text-decoration: none;
+}
+.post .image {
+    float: right;
 }
