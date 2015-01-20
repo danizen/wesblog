@@ -14,7 +14,7 @@ This is a javascript solution using:
 
 ## How to use it?
 
-Include into the `head` element of the page the following files:
+Include into the `<head>` element of the page the following files:
 
 * `js/wesblog.js` - creates a module named `WESBLOG` with a couple of methods.
 * `css/wesblog.css` - this creates styling defined by me mostly for demo purposes, it is optional.
