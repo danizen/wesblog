@@ -46,7 +46,7 @@ var WESBLOG = (function() {
       var imgtag = el.querySelector('img');
       if (imgtag) {
         imgsrc = imgtag.getAttribute('src');
-        imgsrc = '<img src="' + imgsrc + '">';
+        imgsrc = '<img src="' + imgsrc + '" width="300">';
         var parenttag = imgtag.parentNode;
         if (parenttag.nodeName == 'A') {
           parenttag.parentNode.removeChild(parenttag);
