@@ -49,6 +49,15 @@ var WESBLOG = (function() {
           imgtag.parentNode.setAttribute('style', 'clear: left; float: right; margin-bottom: 1em; margin-right: 1em;');
         }
       }
+
+      // remove the "Read more &rqauo;" if present
+      var links = el.querySelectorAll('a'), i;
+      for (i = 0; i < links.length; i++) {
+        if (links[i].textContent == "Read more »") {
+          links[i].parentNode.removeChild(links[i]);
+        }
+      }
+
       return el.innerHTML;
     },
     // Formats JSON data from blogger into simpler model
