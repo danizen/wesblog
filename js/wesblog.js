@@ -46,7 +46,16 @@ var WESBLOG = (function() {
       var imgtag = el.querySelector('img');
       if (imgtag) {
         imgsrc = imgtag.getAttribute('src');
-        imgsrc = '<img src="' + imgsrc + '" width="300">';
+        var iw = imgtag.getAttribute('width');
+        var ih = imgtag.getAttribute('height');
+        imgsrc = '<img src="'+imgsrc+'"';
+        if (iw) {
+          imgsrc += ' width="'+iw+'"';
+        }
+        if (ih) {
+          imgsrc += ' height="'+ih+'"';
+        }
+        imgsrc += '/>';
         var parenttag = imgtag.parentNode;
         if (parenttag.nodeName == 'A') {
           parenttag.parentNode.removeChild(parenttag);
