@@ -31,64 +31,25 @@ var WESBLOG = (function() {
     },
     // Trims the content down to a manageable length
     parseContent: function(content) {
-      var nwords = 0;
       var type = content['type'];
       if (type == 'text') {
-        return { snippet: content[$], image: null };
+        return content['$'];
       }
 
       // create an element with this HTML to parse the HTML
       var el = document.createElement('div');
       el.innerHTML = content['$t'];
 
-      // remove the first img from the text
+      // change the first img in the text to aligh right
       var imgsrc = null;
       var imgtag = el.querySelector('img');
-      if (imgtag) {
-        imgsrc = imgtag.getAttribute('src');
-        var iw = imgtag.getAttribute('width');
-        var ih = imgtag.getAttribute('height');
-        imgsrc = '<img src="'+imgsrc+'"';
-        if (iw) {
-          imgsrc += ' width="'+iw+'"';
-        }
-        if (ih) {
-          imgsrc += ' height="'+ih+'"';
-        }
-        imgsrc += '/>';
-        var parenttag = imgtag.parentNode;
-        if (parenttag.nodeName == 'A') {
-          parenttag.parentNode.removeChild(parenttag);
-        } else {
-          parenttag.removeChild(imgtag);
+      if (imgtag && imgtag.parentNode.tagName == 'A') {
+        var linkstyle = imgtag.parentNode.getAttribute('style');
+        if (linkstyle && linkstyle == 'clear: left; float: left; margin-bottom: 1em; margin-right: 1em;') {
+          imgtag.parentNode.setAttribute('style', 'clear: left; float: right; margin-bottom: 1em; margin-right: 1em;');
         }
       }
-
-      // Get the first span containing text
-      var bestspan = null;
-      var spans = el.getElementsByTagName('SPAN');
-      for (var i = 0; i < spans.length; i++) {
-        var span = spans[i];
-        if (span.firstChild.nodeName == '#text') {
-          // trim space until we see a non-space character
-          var tt = span.textContent.trim();
-          if (tt.length != 0) {
-            bestspan = span;
-            i = spans.length;
-          }
-        }
-      }
-
-      var thetext;
-      if (bestspan) {
-        thetext = bestspan.innerHTML;
-      } else {
-        thetext = el.innerHTML;
-      }
-
-      // Take each text node, mark its position in the text.  
-      // Fragment combination into sentences.  Take first 3 sentences.
-      return { snippet: thetext, image: imgsrc };
+      return el.innerHTML;
     },
     // Formats JSON data from blogger into simpler model
     formatPosts: function(data) {
@@ -100,10 +61,10 @@ var WESBLOG = (function() {
         var entry = entries[i];
         var title = entry['title']['$t'];
         var link = this.findLink(entry['link']);
-        var parse = this.parseContent(entry['content']);
+        var snippet = this.parseContent(entry['content']);
         var datestr = this.formatDate(entry['published']['$t']);
         result.posts[i] = {
-          title: title, pubdate: datestr, link: link, snippet: parse.snippet, image: parse.image
+          title: title, pubdate: datestr, link: link, snippet: snippet
         };
       }
       return result;
