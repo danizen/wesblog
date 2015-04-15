@@ -40,21 +40,12 @@ var WESBLOG = (function() {
       var el = document.createElement('div');
       el.innerHTML = content['$t'];
 
-      // change the first img in the text to aligh right
-      var imgsrc = null;
-      var imgtag = el.querySelector('img');
-      if (imgtag && imgtag.parentNode.tagName == 'A') {
-        var linkstyle = imgtag.parentNode.getAttribute('style');
-        if (linkstyle && linkstyle == 'clear: left; float: left; margin-bottom: 1em; margin-right: 1em;') {
-          imgtag.parentNode.setAttribute('style', 'clear: left; float: right; margin-bottom: 1em; margin-right: 1em;');
-        }
-      }
-
-      // remove the "Read more &rqauo;" if present
+      // add a class to the "Read more &rqauo;" if present
       var links = el.querySelectorAll('a'), i;
       for (i = 0; i < links.length; i++) {
         if (links[i].textContent == "Read more »") {
-          links[i].parentNode.removeChild(links[i]);
+          var cls = links[i].getAttribute("class");
+          links[i].setAttribute("class", (cls ? cls + " readmore" : "readmore"));
         }
       }
 
