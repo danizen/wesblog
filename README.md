@@ -33,7 +33,7 @@ Include into the `<head>` element of the page the following files:
 
 Somewhere in the page include a blog template for mustache:
 
-```
+```html
 <script type="text/template" id="blog-template">
 {{#posts}}
   <div class="post">
@@ -48,7 +48,7 @@ Somewhere in the page include a blog template for mustache:
 
 Where you want the posts to appear include an empty div in the page:
 
-```
+```html
 <div id="blog-entries"></div>
 ```
 
