@@ -54,15 +54,19 @@ Where you want the posts to appear include an empty div in the page:
 
 Directly below that, include a script calling the JSONP of blogger, substituting any blog we want to include:
 
-```
-<script src="http://ethicalsocietydc.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=10&callback=WESBLOG.showPosts"></script>
+```html
+<script
+src="http://ethicalsocietydc.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=10&callback=WESBLOG.showPosts">
+</script>
 ```
 
 As an example, the `category` parameter could be used to retrieve, for
 instance, just posts related to the Sunday school:
 
-```
-<script src="http://ethicalsocietydc.blogspot.com/feeds/posts/default&alt=json-in-script&max-results=10&category=Sunday+School&callback=WESBLOG.showPosts"></script>
+```html
+<script
+src="http://ethicalsocietydc.blogspot.com/feeds/posts/default&alt=json-in-script&max-results=10&category=Sunday+School&callback=WESBLOG.showPosts">
+</script>
 ```
 
 There is a limit of one blog script call per SimpleUpdate's page, because we
